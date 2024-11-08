@@ -44,6 +44,13 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteFavprite(favorite) {
+    if (favorites.contains(favorite)) {
+      favorites.remove(favorite);
+      notifyListeners();
+    }
+  }
+
 }
 
 class MyHomePage extends StatefulWidget {
@@ -154,6 +161,7 @@ class FavoritesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     var favorites = appState.favorites;
+    final theme = Theme.of(context);
 
     if (favorites.isEmpty) {
       return Center(
@@ -165,15 +173,16 @@ class FavoritesPage extends StatelessWidget {
       children: [
         for (var fav in favorites)
           ListTile(
+            tileColor: theme.colorScheme.primary,
             leading: Icon(Icons.favorite),
-            title: Text(fav.asString), 
-          ),
-          ElevatedButton(
-            onPressed: () {
-              print("Delete");
-              // appState.delete();
-            },
-            child: Text('Delete'),
+            title: Text(fav.asString),
+            trailing:
+              ElevatedButton(
+                onPressed: () {
+                  appState.deleteFavprite(fav);
+                },
+                child: Text('Delete'),
+              ),
           ),
       ],
     );
