@@ -165,7 +165,7 @@ class FavoritesPage extends StatelessWidget {
 
     if (favorites.isEmpty) {
       return Center(
-        child: Text("You haven't added any favorite yet")
+        child: Text("You haven't saved any favorite word yet")
       );
     }
 
@@ -175,7 +175,7 @@ class FavoritesPage extends StatelessWidget {
           ListTile(
             tileColor: theme.colorScheme.primary,
             leading: Icon(Icons.favorite),
-            title: Text(fav.asString),
+            title: Text(fav.asPascalCase),
             trailing:
               ElevatedButton(
                 onPressed: () {
@@ -209,7 +209,7 @@ class BigCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Text(
-          pair.asLowerCase,
+          pair.asPascalCase,
           style: style,
           semanticsLabel: "${pair.first} ${pair.second}",
         ),
